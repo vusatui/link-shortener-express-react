@@ -1,0 +1,30 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Link Shortener API",
+    "description": "",
+    "version": "1"
+  },
+  "paths": {
+    "/ping": {
+      "get": {
+        "description": "Just for testing",
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            },
+            "headers": {},
+            "examples": {},
+            "description": ""
+          }
+        }
+      }
+    }
+  }
+}
