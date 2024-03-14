@@ -4,9 +4,6 @@
   "description": "",
   "main": "dist/server.js",
   "scripts": {
-    "podman:stop": "podman-compose -f .docker/compose-dev.yml down",
-    "podman:start": "podman-compose -f .docker/compose-dev.yml up -d",
-    "podman:restart": "npm run podman:stop && npm run podman:start",
     "start": "npm run serve",
     "build": "npm run build-ts",
     "serve": "node dist/server.js",
