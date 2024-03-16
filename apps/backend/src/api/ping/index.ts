@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-export const usePingRoute = (parentRoute: Router) => {
+export const usePingRoute = (router: Router) => {
     const pingRoute = Router();
 
     pingRoute.get("/", (req, res) => {
@@ -9,5 +9,5 @@ export const usePingRoute = (parentRoute: Router) => {
         });
     });
 
-    parentRoute.use("/ping", pingRoute);
+    router.use("/ping", pingRoute);
 };
