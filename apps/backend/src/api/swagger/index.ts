@@ -5,10 +5,10 @@ import swaggerUi from "swagger-ui-express";
 
 const swaggerDocument = JSON.parse(readFileSync(resolve(__dirname, "../../../swagger.json"), "utf-8"));
 
-export const useSwaggerRoute = (router: Router) => {
-    const swaggerRouter = Router();
+export const swaggerRoute = (): Router => {
+    const router = Router();
 
-    swaggerRouter.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+    router.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-    router.use(swaggerRouter);
+    return router
 };

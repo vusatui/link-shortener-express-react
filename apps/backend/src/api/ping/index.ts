@@ -1,13 +1,13 @@
 import { Router } from "express";
 
-export const usePingRoute = (router: Router) => {
-    const pingRoute = Router();
+export const pingRoute = (): Router => {
+    const router = Router();
 
-    pingRoute.get("/", (req, res) => {
+    router.get("/", (req, res) => {
         res.json({
             message: "Pong",
         });
     });
 
-    router.use("/ping", pingRoute);
+   return router;
 };

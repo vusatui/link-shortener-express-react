@@ -1,14 +1,14 @@
-import { Express, Router } from "express";
-import { useSwaggerRoute } from "./swagger";
-import { usePingRoute } from "./ping";
-import { useAuthRoute } from "./auth";
+import { Router } from "express";
+import { swaggerRoute } from "./swagger";
+import { pingRoute } from "./ping";
+import { authRoute } from "./auth";
 
-export const registerApi = (app: Express) => {
+export const api = (): Router => {
     const router = Router();
 
-    useSwaggerRoute(router);
-    usePingRoute(router);
-    useAuthRoute(router);
+    router.use("/api-docs", swaggerRoute());
+    router.use("/ping", pingRoute());
+    router.use("/auth", authRoute());
 
-    app.use(router);
+    return router;
 };

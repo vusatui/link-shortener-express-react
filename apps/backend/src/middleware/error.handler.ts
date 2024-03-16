@@ -7,7 +7,7 @@ const errorHandler = (): ErrorRequestHandler => (err, req, res, next) => {
         details: err.details || "Internal server error",
     });
 
-    // Log errors
+    // Should be in the end. Because it modifies err message reference
     logger.error(err);
 };
 
