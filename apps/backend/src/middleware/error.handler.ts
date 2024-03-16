@@ -1,12 +1,14 @@
 import { ErrorRequestHandler } from "express";
-import createHttpError from "http-errors";
 import { logger } from "../service";
 
 const errorHandler = (): ErrorRequestHandler => (err, req, res, next) => {
-    // Log unhandled errors
-    logger.error(err);
+    res.status(err.status || 500).send({
+        message: err.message,
+        details: err.details || "Internal server error",
+    });
 
-    res.json(new createHttpError.InternalServerError());
+    // Log errors
+    logger.error(err);
 };
 
 export default errorHandler;

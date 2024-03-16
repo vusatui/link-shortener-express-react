@@ -2,15 +2,22 @@
   "swagger": "2.0",
   "info": {
     "title": "Link Shortener API",
-    "description": "",
-    "version": "1"
+    "description": "Api for Link Shortener application",
+    "version": "1.0.0"
   },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
   "paths": {
     "/ping": {
       "get": {
         "description": "Just for testing",
         "responses": {
           "200": {
+            "description": "Successfully send a message back",
             "schema": {
               "type": "object",
               "properties": {
@@ -18,11 +25,105 @@
                   "type": "string"
                 }
               }
-            },
-            "headers": {},
-            "examples": {},
-            "description": ""
+            }
           }
+        }
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "summary": "Register a new user",
+        "description": "This endpoint registers a new user with a username, email, and password.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User registration data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserRegistration"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User registered successfully"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "summary": "Login a user",
+        "description": "This endpoint authenticates a user by email and password.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User login credentials",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserLogin"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User logged in successfully",
+            "schema": {
+              "$ref": "#/definitions/UserToken"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "UserRegistration": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "username",
+        "email",
+        "password"
+      ]
+    },
+    "UserLogin": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "email",
+        "password"
+      ]
+    },
+    "UserToken": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
         }
       }
     }
