@@ -1,10 +1,9 @@
 import { Router } from "express";
 import { UserCreateSchemaType, UserLoginSchemaType } from "./validation";
-import { validateLoginHandler, validateSignupHandler } from "./middleware";
+import { authLocalHandler, validateLoginHandler, validateSignupHandler } from "./middleware";
 import { IUser, UserModel } from "../../model";
 import createHttpError from "http-errors";
 import generateTokenUtil from "./util/generate-token.util";
-import { passport } from "./strategy";
 
 export const authRoute = (): Router => {
     const router = Router();
@@ -21,7 +20,7 @@ export const authRoute = (): Router => {
         }
     });
 
-    router.post<{}, {}, UserLoginSchemaType>("/login", validateLoginHandler(), passport.authenticate("local", { session: false }), (req, res) => {
+    router.post<{}, {}, UserLoginSchemaType>("/login", validateLoginHandler(), authLocalHandler(), (req, res) => {
         res.json({ token: generateTokenUtil(req.user as IUser) });
     });
 
