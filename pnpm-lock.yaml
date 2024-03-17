@@ -74,6 +74,9 @@ importers:
       '@types/passport':
         specifier: ^1.0.16
         version: 1.0.16
+      '@types/passport-jwt':
+        specifier: ^4.0.1
+        version: 4.0.1
       '@types/passport-local':
         specifier: ^1.0.38
         version: 1.0.38
@@ -210,6 +213,13 @@ packages:
     resolution: {integrity: sha512-M/GPWVS2wLkSkNHVeLkrF2fD5Lx5UC4PxA0uZcKc6QqbIQUJyW1jVjueJYi1z8n0I5PxYrtpnPnWglE+y9A0KA==}
     dependencies:
       undici-types: 5.26.5
+    dev: true
+
+  /@types/passport-jwt@4.0.1:
+    resolution: {integrity: sha512-Y0Ykz6nWP4jpxgEUYq8NoVZeCQPo1ZndJLfapI249g1jHChvRfZRO/LS3tqu26YgAS/laI1qx98sYGz0IalRXQ==}
+    dependencies:
+      '@types/jsonwebtoken': 9.0.6
+      '@types/passport-strategy': 0.2.38
     dev: true
 
   /@types/passport-local@1.0.38:

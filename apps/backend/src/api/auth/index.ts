@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { UserCreateSchemaType, UserLoginSchemaType } from "./validation";
-import { authLocalHandler, validateLoginHandler, validateSignupHandler } from "./middleware";
+import { authLocalHandler, validateLoginHandler, validateSignupHandler, authJwtHandler } from "./middleware";
 import { IUser, UserModel } from "../../model";
 import createHttpError from "http-errors";
 import generateTokenUtil from "./util/generate-token.util";
@@ -25,4 +25,8 @@ export const authRoute = (): Router => {
     });
 
     return router;
+};
+
+export {
+    authJwtHandler,
 };

@@ -1,5 +1,6 @@
-import generateTokenUtil from "./generate-token.util";
+import generateTokenUtil, { JwtUserPayload } from "./generate-token.util";
 
 export {
     generateTokenUtil,
+    JwtUserPayload,
 };
