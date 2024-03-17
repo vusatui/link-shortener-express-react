@@ -2,6 +2,10 @@ import jwt from "jsonwebtoken";
 import { IUser } from "../../../model";
 import applicationConfig from "../../../config";
 
-const generateTokenUtil = (user: IUser) => jwt.sign({ id: user.id }, applicationConfig.jwtSecret, { expiresIn: "1d" });
+export interface JwtUserPayload {
+    id: string;
+}
+
+const generateTokenUtil = (user: IUser) => jwt.sign({ id: user.id } as JwtUserPayload, applicationConfig.jwtSecret, { expiresIn: "1h" });
 
 export default generateTokenUtil;

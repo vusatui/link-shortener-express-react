@@ -10,5 +10,5 @@ export const swaggerRoute = (): Router => {
 
     router.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-    return router
+    return router;
 };

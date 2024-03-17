@@ -9,5 +9,3 @@ const UserCreateSchema = z.object({
 export type UserCreateSchemaType = z.infer<typeof UserCreateSchema>;
 
 export default UserCreateSchema;
-
-
