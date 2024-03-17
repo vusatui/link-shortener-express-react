@@ -1,6 +1,6 @@
 import mongoose, { Document, Schema } from "mongoose";
 
-interface IShortUrl extends Document {
+export interface IShortUrl extends Document {
     originalUrl: string;
     shortId: string;
     userId: Schema.Types.ObjectId;
@@ -15,5 +15,7 @@ const ShortUrlSchema = new Schema<IShortUrl>({
 });
 
 const ShortUrlModel = mongoose.model<IShortUrl>("ShortUrl", ShortUrlSchema);
+
+ShortUrlSchema.index({ userId: 1, originalUrl: 1 }, { unique: true });
 
 export default ShortUrlModel;

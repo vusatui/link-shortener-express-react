@@ -11,7 +11,7 @@ app.use(morgan("dev"));
 app.use(cors());
 app.use(helmet());
 app.use(json());
-app.use(api())
-app.use(errorHandler())
+app.use(api());
+app.use(errorHandler());
 
 

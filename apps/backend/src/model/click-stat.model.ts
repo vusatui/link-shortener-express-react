@@ -1,6 +1,6 @@
 import mongoose, { Document, Schema } from "mongoose";
 
-interface IClickStat extends Document {
+export interface IClickStat extends Document {
     shortUrlId: Schema.Types.ObjectId;
     clickedAt: Date;
     referrer: string;

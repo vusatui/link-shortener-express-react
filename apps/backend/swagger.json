@@ -11,6 +11,30 @@
   "produces": [
     "application/json"
   ],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": "Enter your bearer token in the format **Bearer &lt;token>**"
+    }
+  },
+  "security": [
+    {
+      "Bearer": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "auth"
+    },
+    {
+      "name": "link"
+    },
+    {
+      "name": "link-redirect"
+    }
+  ],
   "paths": {
     "/ping": {
       "get": {
@@ -32,6 +56,7 @@
     },
     "/auth/register": {
       "post": {
+        "tags": ["auth"],
         "summary": "Register a new user",
         "description": "This endpoint registers a new user with a username, email, and password.",
         "parameters": [
@@ -57,6 +82,7 @@
     },
     "/auth/login": {
       "post": {
+        "tags": ["auth"],
         "summary": "Login a user",
         "description": "This endpoint authenticates a user by email and password.",
         "parameters": [
@@ -79,6 +105,123 @@
           },
           "401": {
             "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/link/shorten": {
+      "post": {
+        "tags": ["link"],
+        "summary": "Shorten the link",
+        "description": "This endpoint shorten the link",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Data required for shorten the link",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LinkCreateSchemaType"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Link shorten successfully",
+            "schema": {
+              "$ref": "#/definitions/IShortUrl"
+            }
+          },
+          "400": {
+            "description": "A shortened link already exists for this user with the same original URL or input data invalid"
+          }
+        }
+      }
+    },
+    "/link/{shortId}": {
+      "get": {
+        "tags": ["link"],
+        "summary": "Retrieve the link",
+        "description": "This returns the link",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "shortId",
+            "description": "Shorten link id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Link shorten",
+            "schema": {
+              "$ref": "#/definitions/IShortUrl"
+            }
+          },
+          "404": {
+            "description": "Link not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["link"],
+        "summary": "Delete the link",
+        "description": "This endpoint deletes the link",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "shortId",
+            "description": "Shorten link id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Link shorten"
+          },
+          "404": {
+            "description": "Link not found"
+          }
+        }
+      }
+    },
+    "/{shortId}": {
+      "get": {
+        "tags": ["link-redirect"],
+        "summary": "Link Redirect",
+        "description": "Redirect to the link",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "shortId",
+            "description": "Shorten link id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Link shorten"
+          },
+          "404": {
+            "description": "Link not found"
           }
         }
       }
@@ -123,6 +266,31 @@
       "type": "object",
       "properties": {
         "token": {
+          "type": "string"
+        }
+      }
+    },
+    "LinkCreateSchemaType": {
+      "type": "object",
+      "properties": {
+        "originalUrl": {
+          "type": "string"
+        }
+      }
+    },
+    "IShortUrl": {
+      "type": "object",
+      "properties": {
+        "originalUrl": {
+          "type": "string"
+        },
+        "shortId": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "createdAt": {
           "type": "string"
         }
       }

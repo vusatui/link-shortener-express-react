@@ -1,9 +1,5 @@
 import { Strategy } from "passport";
-import {
-    Strategy as JwtStrategy,
-    ExtractJwt,
-    StrategyOptionsWithoutRequest,
-} from "passport-jwt";
+import { ExtractJwt, Strategy as JwtStrategy, StrategyOptionsWithoutRequest } from "passport-jwt";
 import config from "../../../config";
 import { JwtUserPayload } from "../util";
 import { UserModel } from "../../../model";

@@ -9,5 +9,5 @@ export const pingRoute = (): Router => {
         });
     });
 
-   return router;
+    return router;
 };
