@@ -1,4 +1,4 @@
-import passport, { Strategy } from "passport";
+import { Strategy } from "passport";
 import {
     Strategy as JwtStrategy,
     ExtractJwt,
@@ -11,7 +11,7 @@ import { JwtPayload } from "jsonwebtoken";
 
 const options: StrategyOptionsWithoutRequest = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: config.jwtSecret
+    secretOrKey: config.jwtSecret,
 };
 
 const getJwtStrategy = (): Strategy => new JwtStrategy(options, async (payload: JwtUserPayload & JwtPayload, done) => {
