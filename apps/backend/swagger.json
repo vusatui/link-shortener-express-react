@@ -56,7 +56,9 @@
     },
     "/auth/register": {
       "post": {
-        "tags": ["auth"],
+        "tags": [
+          "auth"
+        ],
         "summary": "Register a new user",
         "description": "This endpoint registers a new user with a username, email, and password.",
         "parameters": [
@@ -82,7 +84,9 @@
     },
     "/auth/login": {
       "post": {
-        "tags": ["auth"],
+        "tags": [
+          "auth"
+        ],
         "summary": "Login a user",
         "description": "This endpoint authenticates a user by email and password.",
         "parameters": [
@@ -109,9 +113,37 @@
         }
       }
     },
+    "/link/": {
+      "get": {
+        "tags": [
+          "link"
+        ],
+        "summary": "Retrieve all user link",
+        "description": "This returns user's links",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Link shorten",
+            "schema": {
+              "type": "array",
+              "$ref": "#/definitions/IShortUrl"
+            }
+          },
+          "404": {
+            "description": "Links not found"
+          }
+        }
+      }
+    },
     "/link/shorten": {
       "post": {
-        "tags": ["link"],
+        "tags": [
+          "link"
+        ],
         "summary": "Shorten the link",
         "description": "This endpoint shorten the link",
         "security": [
@@ -145,7 +177,9 @@
     },
     "/link/{shortId}": {
       "get": {
-        "tags": ["link"],
+        "tags": [
+          "link"
+        ],
         "summary": "Retrieve the link",
         "description": "This returns the link",
         "security": [
@@ -174,8 +208,50 @@
           }
         }
       },
+      "patch": {
+        "tags": [
+          "link"
+        ],
+        "summary": "Update the link",
+        "description": "Updates and returns updated link",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "shortId",
+            "description": "Shorten link id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Field to update",
+            "schema": {
+              "$ref": "#/definitions/LinkUpdateSchemaType"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Link shorten",
+            "schema": {
+              "$ref": "#/definitions/IShortUrl"
+            }
+          },
+          "404": {
+            "description": "Link not found"
+          }
+        }
+      },
       "delete": {
-        "tags": ["link"],
+        "tags": [
+          "link"
+        ],
         "summary": "Delete the link",
         "description": "This endpoint deletes the link",
         "security": [
@@ -204,7 +280,9 @@
     },
     "/{shortId}": {
       "get": {
-        "tags": ["link-redirect"],
+        "tags": [
+          "link-redirect"
+        ],
         "summary": "Link Redirect",
         "description": "Redirect to the link",
         "parameters": [
@@ -273,6 +351,9 @@
     "LinkCreateSchemaType": {
       "type": "object",
       "properties": {
+        "displayName": {
+          "type": "string"
+        },
         "originalUrl": {
           "type": "string"
         }
@@ -291,6 +372,17 @@
           "type": "string"
         },
         "createdAt": {
+          "type": "string"
+        }
+      }
+    },
+    "LinkUpdateSchemaType": {
+      "type": "object",
+      "properties": {
+        "displayName": {
+          "type": "string"
+        },
+        "originalUrl": {
           "type": "string"
         }
       }

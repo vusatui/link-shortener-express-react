@@ -11,6 +11,8 @@ const validateLinkOwnerHandler = (): RequestHandler<{ shortId: string }> => asyn
 
         if (!shortUrl) return next(createHttpError.NotFound());
 
+        res.locals.shortUrl = shortUrl;
+
         next();
     } catch (err) {
         next(createHttpError.InternalServerError());
