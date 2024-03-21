@@ -278,6 +278,36 @@
         }
       }
     },
+    "/link/{shortId}/statistic/click": {
+      "get": {
+        "tags": [
+          "link-statistics"
+        ],
+        "summary": "Link Statistics",
+        "description": "Endpoint for getting link statistics",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "shortId",
+            "description": "Shorten link id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Link shorten",
+            "schema": {
+              "$ref": "#/definitions/IClickStat",
+              "type": "array"
+            }
+          },
+          "404": {
+            "description": "Link not found"
+          }
+        }
+      }
+    },
     "/{shortId}": {
       "get": {
         "tags": [
@@ -372,6 +402,27 @@
           "type": "string"
         },
         "createdAt": {
+          "type": "string"
+        }
+      }
+    },
+    "IClickStat": {
+      "type": "object",
+      "properties": {
+        "shortUrlId": {
+          "type": "string"
+        },
+        "clickedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "referrer": {
+          "type": "string"
+        },
+        "ipAddress": {
+          "type": "string"
+        },
+        "userAgent": {
           "type": "string"
         }
       }
