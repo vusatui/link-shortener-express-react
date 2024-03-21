@@ -3,7 +3,7 @@ import { authJwtHandler } from "../auth";
 import createHttpError from "http-errors";
 import { validateLinkCreateHandler, validateLinkUpdateHandler } from "./middleware";
 import { LinkCreateSchemaType, LinkUpdateSchemaType } from "./validation";
-import { ClickStatModel, IShortUrl, IUser, ShortUrlModel } from "../../model";
+import { ClickStatModel, IClickStat, IShortUrl, IUser, ShortUrlModel } from "../../model";
 import { nanoid } from "nanoid";
 import validateLinkOwnerHandler from "./middleware/validate-link-owner.handler";
 import { logger } from "../../service";
@@ -92,7 +92,7 @@ export const linkRoute = (): Router => {
         },
     );
 
-    router.delete("/:shortId",
+    router.delete<{ shortId: string }>("/:shortId",
         authJwtHandler(),
         validateLinkOwnerHandler(),
         async (req, res, next) => {
@@ -102,6 +102,18 @@ export const linkRoute = (): Router => {
             } catch (err) {
                 next(err);
             }
+        },
+    );
+
+    router.get<{ shortId: string }, IClickStat[]>("/:shortId/statistic/click",
+        authJwtHandler(),
+        validateLinkOwnerHandler(),
+        async (req, res, next) => {
+            const shortUrlClickStat = await ClickStatModel.find({ shortUrlId: req.params.shortId });
+
+            if (!shortUrlClickStat.length) return next(createHttpError.NotFound());
+
+            res.json(shortUrlClickStat);
         },
     );
 
