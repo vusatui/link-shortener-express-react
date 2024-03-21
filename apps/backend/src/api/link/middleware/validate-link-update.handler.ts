@@ -1,11 +1,11 @@
 import { RequestHandler } from "express";
-import { LinkCreateSchema, LinkCreateSchemaType } from "../validation";
+import { LinkUpdateSchema, LinkUpdateSchemaType } from "../validation";
 import { ZodError } from "zod";
 import createHttpError from "http-errors";
 
-const validateLinkCreateHandler = <IParams, IResponse>(): RequestHandler<IParams, IResponse, LinkCreateSchemaType> => (req, res, next) => {
+const validateLinkUpdateHandler = (): RequestHandler<any, any, LinkUpdateSchemaType> => (req, res, next) => {
     try {
-        LinkCreateSchema.parse(req.body);
+        LinkUpdateSchema.parse(req.body);
         next();
     } catch (err) {
         if (err instanceof ZodError) next(createHttpError(400, "Invalid input", { details: err.errors }));
@@ -13,4 +13,4 @@ const validateLinkCreateHandler = <IParams, IResponse>(): RequestHandler<IParams
     }
 };
 
-export default validateLinkCreateHandler;
+export default validateLinkUpdateHandler;
