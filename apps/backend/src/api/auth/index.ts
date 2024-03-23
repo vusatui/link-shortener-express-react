@@ -8,7 +8,7 @@ import generateTokenUtil from "./util/generate-token.util";
 export const authRoute = (): Router => {
     const router = Router();
 
-    router.post<{}, {}, UserCreateSchemaType>("/register", validateSignupHandler(), async (req, res, next) => {
+    router.post<{}, {}, UserCreateSchemaType, { token: string }>("/register", validateSignupHandler(), async (req, res, next) => {
         try {
             const user = new UserModel(req.body);
             await user.save();
@@ -20,7 +20,7 @@ export const authRoute = (): Router => {
         }
     });
 
-    router.post<{}, {}, UserLoginSchemaType>("/login", validateLoginHandler(), authLocalHandler(), (req, res) => {
+    router.post<{}, {}, UserLoginSchemaType, { token: string }>("/login", validateLoginHandler(), authLocalHandler(), (req, res) => {
         res.json({ token: generateTokenUtil(req.user as IUser) });
     });
 
