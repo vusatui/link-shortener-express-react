@@ -12,6 +12,7 @@ export const router = createBrowserRouter(
         <Route path="/">
             <Route index element={<RootRedirect />} />
             <Route path="register" element={<RegisterPage />} />
+            <Route path="*" element={<RootRedirect />} />
         </Route>,
     ),
 );
